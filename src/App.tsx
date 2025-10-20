@@ -1,38 +1,16 @@
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
+import ViewIssue from "./features/issue/ViewIssue";
+import Tasks from "./features/tasks/Tasks";
 
 function App() {
 	return (
-		<div
-			style={{
-				width: "100",
-				backgroundColor: "#FAFBFA",
-				padding: "12px",
-				display: "flex",
-				flexDirection: "row",
-			}}
-		>
-			<div
-				style={{
-					height: "100vh",
-					width: "20%",
-					borderRadius: "8px",
-					padding: "16px 16px 16px 0px",
-				}}
-			>
-				sidebar
-			</div>
-			<div
-				style={{
-					backgroundColor: "#ffffff",
-					width: "80%",
-					border: "1px solid #e5e6e8",
-					borderRadius: "8px",
-					padding: "16px",
-				}}
-			>
-				<h1>Tasks</h1>
-			</div>
-		</div>
+		<Routes>
+			<Route path="/" element={<Navigate to="/board" replace />} />
+			<Route index path="/board" element={<Tasks />} />
+			<Route path="/issue:id" element={<ViewIssue />} />
+			<Route path="/*" element={<>Page Not Found, 404.</>} />
+		</Routes>
 	);
 }
 
