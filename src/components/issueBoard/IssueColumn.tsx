@@ -1,18 +1,20 @@
 import { useDroppable } from "@dnd-kit/core";
-import type { TIssue } from "../../types";
+import type { IssueStatus, TIssue } from "../../types";
 import IssueCard from "./IssueCard";
+import IssueDraggable from "./IssueDraggable";
 
 interface IssueColumnProps {
 	title: string;
 	tasks: TIssue[];
 	loading: boolean;
+	columnStatus: IssueStatus;
 }
 
-function IssueColumn({ title, tasks, loading }: IssueColumnProps) {
+function IssueColumn({ title, tasks, loading, columnStatus }: IssueColumnProps) {
 	const count = tasks.length;
 
 	const { isOver, setNodeRef } = useDroppable({
-		id: title.toLowerCase().replace(" ", ""), // Remove spaces for consistent IDs
+		id: columnStatus,
 	});
 
 	return (
@@ -23,7 +25,7 @@ function IssueColumn({ title, tasks, loading }: IssueColumnProps) {
 				height: "100%",
 				display: "flex",
 				flexDirection: "column",
-				minHeight: 0, // Important for flex children to shrink
+				minHeight: 0,
 				border: isOver ? "2px solid #3b82f6" : "1px solid lightgray",
 				borderRadius: "8px",
 				padding: "16px",
@@ -62,7 +64,17 @@ function IssueColumn({ title, tasks, loading }: IssueColumnProps) {
 					}}
 				>
 					{tasks.map((task) => (
-						<IssueCard key={task.id} issue={task} />
+						<IssueDraggable key={task.id} issue={task}>
+							<IssueCard
+								issue={task}
+								stylesOverride={{
+									border: "1px solid lightgray",
+									borderRadius: "8px",
+									padding: "12px 8px",
+									backgroundColor: "white",
+								}}
+							/>
+						</IssueDraggable>
 					))}
 
 					{count > 10 && (

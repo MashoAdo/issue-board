@@ -8,7 +8,10 @@
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
 }
 
-.tasks-header {
+.tasks-header-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	margin-bottom: 12px;
 }
 
@@ -23,6 +26,12 @@
 	color: #6b7280;
 	margin: 0;
 	font-weight: 400;
+}
+
+.tasks-sync-time {
+	font-weight: 600;
+	color: #1a1a1a;
+	font-size: 14px;
 }
 
 .tasks-sync-info {

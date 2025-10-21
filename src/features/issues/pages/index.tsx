@@ -1,72 +1,44 @@
-import { useEffect, useState } from "react";
-import fetchIssues from "../../../api";
-import Input from "../../../components/form/Input";
-import store from "../../../store/store";
-import BackLogColumn from "../components/BackLog";
-import DoneColumn from "../components/Done";
-import InProgressColumn from "../components/InProgress";
+import { type DragOverEvent } from "@dnd-kit/core";
+import { useDragAndDrop } from "../../../hooks/useDragAndDrop";
+import { useIssueData } from "../../../hooks/useIssueData";
+import IssueBoardColumns from "../components/IssueBoardColumns";
+import IssueBoardFilters from "../components/IssueBoardFilters";
+import IssueBoardHeader from "../components/IssueBoardHeader";
 import "../style/Tasks.css";
 
 function IssueBoard() {
-	const { issues, setIssues } = store.getState();
+	// Data management
+	const { lastSyncTime, isPolling } = useIssueData();
 
-	const [loading, setLoading] = useState(false);
-	const [searchTerm, setSearchTerm] = useState("");
+	// Drag and drop management
+	const { activeIssue, handleDragStart, handleDragEnd } = useDragAndDrop({
+		onError: (error) => {
+			console.error("Drag and drop error:", error);
+			// Could show toast notification here
+		},
+		onSuccess: (issueId, newStatus) => {
+			console.log(`Successfully moved issue ${issueId} to ${newStatus}`);
+			// Could show success notification here
+		},
+	});
 
-	useEffect(() => {
-		setLoading(true);
-
-		fetchIssues()
-			.then((issues) => {
-				const backlog = issues.filter((issue) => issue.status === "backlog");
-				const inProgress = issues.filter((issue) => issue.status === "inProgress");
-				const done = issues.filter((issue) => issue.status === "done");
-
-				setIssues({ backlog, inProgress, done });
-			})
-			.finally(() => {
-				setLoading(false);
-			});
-	}, []);
+	const handleDragOver = (event: DragOverEvent) => {
+		// Optional: Handle drag over events for visual feedback
+		console.log("drag over", event);
+	};
 
 	return (
 		<div className="tasks-container">
-			<div className="tasks-header">
-				<h1 className="tasks-title">Issue Tracker Board</h1>
-				<p className="tasks-subtitle">Gain insights into project progress and team performance</p>
-			</div>
+			<IssueBoardHeader lastSyncTime={lastSyncTime} isPolling={isPolling} />
 
-			<div className="tasks-controls">
-				<div className="tasks-search-section">
-					<Input />
+			<IssueBoardFilters />
 
-					<div className="tasks-filter-group">
-						<label className="tasks-filter-label" htmlFor="assignees">
-							Sort by Assignee
-						</label>
-						<select className="tasks-filter-select" name="assignees" id="assignees">
-							<option value="Thomas">Thomas</option>
-							<option value="Angie">Angie</option>
-						</select>
-					</div>
-
-					<button className="tasks-button tasks-button--secondary" type="button">
-						Sort by Severity
-					</button>
-				</div>
-
-				<div className="tasks-actions">
-					<button className="tasks-button tasks-button--secondary" type="button">
-						Recently viewed
-					</button>
-				</div>
-			</div>
-
-			<div className="tasks-columns">
-				<BackLogColumn loading={loading} />
-				<InProgressColumn loading={loading} />
-				<DoneColumn loading={loading} />
-			</div>
+			<IssueBoardColumns
+				onDragStart={handleDragStart}
+				onDragEnd={handleDragEnd}
+				onDragOver={handleDragOver}
+				activeIssue={activeIssue ?? null}
+			/>
 		</div>
 	);
 }

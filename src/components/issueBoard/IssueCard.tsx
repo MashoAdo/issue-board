@@ -1,35 +1,23 @@
-import { useDraggable } from "@dnd-kit/core";
 import type { TIssue } from "../../types";
 
 interface IssueCardProps {
 	issue: TIssue;
+	stylesOverride?: React.CSSProperties;
 }
 
-function IssueCard({ issue }: IssueCardProps) {
-	const { isDragging, attributes, listeners, setNodeRef } = useDraggable({
-		id: issue.id.toString(),
-	});
-
+function IssueCard({ issue, stylesOverride = {} }: IssueCardProps) {
 	return (
 		<div
-			ref={setNodeRef}
 			style={{
-				opacity: isDragging ? 0.3 : 1,
 				display: "flex",
 				flexDirection: "column",
 				gap: "10px",
-				border: isDragging ? "2px dashed #3b82f6" : "1px solid lightgray",
+				border: "1px solid lightgray",
 				borderRadius: "8px",
 				padding: "12px 8px",
-				zIndex: isDragging ? 1 : 1,
-				backgroundColor: isDragging ? "#f8fafc" : "white",
-				cursor: isDragging ? "grabbing" : "grab",
-				boxShadow: isDragging ? "none" : "none",
-				transform: isDragging ? "none" : "none",
-				transition: "all 0.2s ease",
+				backgroundColor: "white",
+				...stylesOverride,
 			}}
-			{...attributes}
-			{...listeners}
 		>
 			<p>{issue.title}</p>
 

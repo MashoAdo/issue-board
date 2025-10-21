@@ -5,7 +5,7 @@ function DoneColumn() {
 	const done = useGlobalStore((state) => state.issues.done);
 	const loading = useGlobalStore((state) => state.isLoading);
 
-	return <IssueColumn loading={loading} title="Done" tasks={done} />;
+	return <IssueColumn loading={loading} title="Done" tasks={done} columnStatus="done" />;
 }
 
 export default DoneColumn;

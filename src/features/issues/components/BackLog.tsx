@@ -5,7 +5,7 @@ function BackLogColumn() {
 	const backlog = useGlobalStore((state) => state.issues.backlog);
 	const loading = useGlobalStore((state) => state.isLoading);
 
-	return <IssueColumn loading={loading} title="Backlog" tasks={backlog} />;
+	return <IssueColumn loading={loading} title="Backlog" tasks={backlog} columnStatus="backlog" />;
 }
 
 export default BackLogColumn;
