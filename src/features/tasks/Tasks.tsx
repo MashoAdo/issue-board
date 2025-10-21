@@ -1,3 +1,4 @@
+import TaskColumn from "../../components/taskBoard/TaskColumn";
 import "./Tasks.css";
 
 function Tasks() {
@@ -41,6 +42,75 @@ function Tasks() {
 						Add Task
 					</button>
 				</div>
+			</div>
+
+			<div
+				style={{
+					display: "flex",
+					justifyContent: "stretch",
+					gap: "32px",
+					width: "100%",
+					marginTop: "40px",
+					height: "100%",
+				}}
+			>
+				<TaskColumn
+					title="Backlog"
+					tasks={[
+						{
+							id: 1,
+							title: "Train New Employees",
+							description:
+								"Prepare a list of new employees, set up meeting sessions,discuss Prepare a list of new employees, set up meeting sessions,discuss",
+							tags: ["frontend", "react"],
+							dateCreated: "Nov 4, 2025",
+							severity: 8,
+							userDefinedRank: 1,
+						},
+						{
+							id: 1,
+							title: "Train New Employees",
+							description:
+								"Prepare a list of new employees, set up meeting sessions,discuss Prepare a list of new employees, set up meeting sessions,discuss",
+							tags: ["frontend", "react"],
+							dateCreated: "Nov 4, 2025",
+							severity: 8,
+							userDefinedRank: 1,
+						},
+					]}
+				/>
+
+				<TaskColumn
+					title="In Progress"
+					tasks={[
+						{
+							id: 1,
+							title: "Train New Employees",
+							description:
+								"Prepare a list of new employees, set up meeting sessions,discuss Prepare a list of new employees, set up meeting sessions,discuss",
+							tags: ["frontend", "react"],
+							dateCreated: "Nov 4, 2025",
+							severity: 8,
+							userDefinedRank: 1,
+						},
+					]}
+				/>
+
+				<TaskColumn
+					title="Done"
+					tasks={[
+						{
+							id: 1,
+							title: "Train New Employees",
+							description:
+								"Prepare a list of new employees, set up meeting sessions,discuss Prepare a list of new employees, set up meeting sessions,discuss",
+							tags: ["frontend", "react"],
+							dateCreated: "Nov 4, 2025",
+							severity: 8,
+							userDefinedRank: 1,
+						},
+					]}
+				/>
 			</div>
 		</div>
 	);
