@@ -1,10 +1,9 @@
-import IssueColumn from "../../../components/taskBoard/TaskColumn";
-import store from "../../../store/store";
+import IssueColumn from "../../../components/issueBoard/IssueColumn";
+import useGlobalStore from "../../../store/store";
 
-function InProgressColumn({ loading }: { loading: boolean }) {
-	const {
-		issues: { inProgress },
-	} = store.getState();
+function InProgressColumn() {
+	const inProgress = useGlobalStore((state) => state.issues.inProgress);
+	const loading = useGlobalStore((state) => state.isLoading);
 
 	return <IssueColumn loading={loading} title="In Progress" tasks={inProgress} />;
 }

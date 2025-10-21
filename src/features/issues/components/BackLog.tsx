@@ -1,10 +1,9 @@
-import IssueColumn from "../../../components/taskBoard/TaskColumn";
-import store from "../../../store/store";
+import IssueColumn from "../../../components/issueBoard/IssueColumn";
+import useGlobalStore from "../../../store/store";
 
-function BackLogColumn({ loading }: { loading: boolean }) {
-	const {
-		issues: { backlog },
-	} = store.getState();
+function BackLogColumn() {
+	const backlog = useGlobalStore((state) => state.issues.backlog);
+	const loading = useGlobalStore((state) => state.isLoading);
 
 	return <IssueColumn loading={loading} title="Backlog" tasks={backlog} />;
 }

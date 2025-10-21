@@ -1,4 +1,6 @@
+import { useDroppable } from "@dnd-kit/core";
 import type { TIssue } from "../../types";
+import IssueCard from "./IssueCard";
 
 interface IssueColumnProps {
 	title: string;
@@ -9,14 +11,25 @@ interface IssueColumnProps {
 function IssueColumn({ title, tasks, loading }: IssueColumnProps) {
 	const count = tasks.length;
 
+	const { isOver, setNodeRef } = useDroppable({
+		id: title.toLowerCase().replace(" ", ""), // Remove spaces for consistent IDs
+	});
+
 	return (
 		<div
+			ref={setNodeRef}
 			style={{
 				flex: 1,
 				height: "100%",
 				display: "flex",
 				flexDirection: "column",
 				minHeight: 0, // Important for flex children to shrink
+				border: isOver ? "2px solid #3b82f6" : "1px solid lightgray",
+				borderRadius: "8px",
+				padding: "16px",
+				backgroundColor: isOver ? "#f0f9ff" : "transparent",
+				transition: "all 0.2s ease",
+				position: "relative",
 			}}
 		>
 			<div
@@ -43,48 +56,13 @@ function IssueColumn({ title, tasks, loading }: IssueColumnProps) {
 						gap: "16px",
 						overflowY: "auto",
 						scrollBehavior: "smooth",
-						padding: "16px",
 						border: "1px solid ##FCFCFC",
 						borderRadius: "8px",
 						maxHeight: "700px",
 					}}
 				>
 					{tasks.map((task) => (
-						<div key={task.id}>
-							<div
-								style={{
-									display: "flex",
-									flexDirection: "column",
-									gap: "10px",
-									border: "1px solid lightgray",
-									borderRadius: "8px",
-									padding: "12px 8px",
-								}}
-							>
-								<p>{task.title}</p>
-
-								<div style={{ display: "flex", gap: "16px" }}>
-									{task.tags.map((tag, idx) => (
-										<div
-											key={idx}
-											style={{
-												border: "1px solid lightgray",
-												borderRadius: "6px",
-												padding: "2px 4px",
-												fontSize: "12px",
-											}}
-										>
-											{tag}
-										</div>
-									))}
-								</div>
-
-								<div style={{ display: "flex", justifyContent: "space-between" }}>
-									<p style={{ fontSize: "14px" }}>{task.dateCreated}</p>
-									<p style={{ fontSize: "14px", color: "red" }}>Priority {task.severity}</p>
-								</div>
-							</div>
-						</div>
+						<IssueCard key={task.id} issue={task} />
 					))}
 
 					{count > 10 && (

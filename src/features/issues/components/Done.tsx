@@ -1,10 +1,9 @@
-import IssueColumn from "../../../components/taskBoard/TaskColumn";
-import store from "../../../store/store";
+import IssueColumn from "../../../components/issueBoard/IssueColumn";
+import useGlobalStore from "../../../store/store";
 
-function DoneColumn({ loading }: { loading: boolean }) {
-	const {
-		issues: { done },
-	} = store.getState();
+function DoneColumn() {
+	const done = useGlobalStore((state) => state.issues.done);
+	const loading = useGlobalStore((state) => state.isLoading);
 
 	return <IssueColumn loading={loading} title="Done" tasks={done} />;
 }
