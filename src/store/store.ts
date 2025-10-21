@@ -1,0 +1,74 @@
+import { create } from "zustand";
+import { createJSONStorage, devtools, persist } from "zustand/middleware";
+import type { TIssue } from "../types";
+
+export type IssueStore = {
+	isLoading: boolean;
+	setLoading: (isLoading: boolean) => void;
+	isViewIssueModalOpen: boolean;
+	toggleViewIssueModal: () => void;
+	isToasterOpen: boolean;
+	toggleToaster: () => void;
+	issues: { backlog: TIssue[]; inProgress: TIssue[]; done: TIssue[] };
+	setIssues: (issues: { backlog: TIssue[]; inProgress: TIssue[]; done: TIssue[] }) => void;
+	// Polling state
+	isPolling: boolean;
+	lastSyncTime: string | null;
+	startPolling: () => void;
+	stopPolling: () => void;
+	// addIssue: (issue: TIssue) => void;
+};
+
+const useGlobalStore = create<IssueStore>()(
+	devtools(
+		persist(
+			(set) => ({
+				// state
+				isLoading: false,
+				setLoading: (isLoading: boolean) => {
+					console.log("isLoading", isLoading);
+					set(() => ({ isLoading }));
+				},
+
+				// view issue modal
+				isViewIssueModalOpen: false,
+				toggleViewIssueModal: () => {
+					set((state) => ({ isViewIssueModalOpen: !state.isViewIssueModalOpen }));
+				},
+
+				// toaster
+				isToasterOpen: false,
+				toggleToaster: () => {
+					set((state) => ({ isToasterOpen: !state.isToasterOpen }));
+				},
+
+				// issues
+				issues: {
+					backlog: [],
+					inProgress: [],
+					done: [],
+				},
+
+				setIssues: (issues: { backlog: TIssue[]; inProgress: TIssue[]; done: TIssue[] }) => {
+					set((state) => ({ issues: { ...state.issues, ...issues } }));
+				},
+
+				// Polling state
+				isPolling: false,
+				lastSyncTime: null,
+				startPolling: () => {
+					set(() => ({ isPolling: true }));
+				},
+				stopPolling: () => {
+					set(() => ({ isPolling: false }));
+				},
+			}),
+			{
+				name: "issue-board",
+				storage: createJSONStorage(() => localStorage),
+			}
+		)
+	)
+);
+
+export default useGlobalStore;
