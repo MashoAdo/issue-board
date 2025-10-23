@@ -5,27 +5,39 @@
 			"title": "Train New Employees",
 			"tags": ["frontend", "react"],
 			"dateCreated": "2024-12-15T09:30:00.000Z",
-			"severity": 7,
+			"severity": 1,
 			"userDefinedRank": 3,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "John Doe",
+				"id": 1
+			}
 		},
 		{
 			"id": 2,
 			"title": "Add New Filter component",
 			"tags": ["frontend", "react"],
 			"dateCreated": "2024-12-20T14:15:30.000Z",
-			"severity": 4,
+			"severity": 2,
 			"userDefinedRank": 8,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "Sarah Wilson",
+				"id": 2
+			}
 		},
 		{
 			"id": 3,
 			"title": "Implement OAuth 2.0 for authentication",
 			"tags": ["backend", "api"],
 			"dateCreated": "2024-12-22T11:45:15.000Z",
-			"severity": 9,
+			"severity": 3,
 			"userDefinedRank": 2,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "Mike Chen",
+				"id": 3
+			}
 		},
 		{
 			"id": 4,
@@ -34,25 +46,37 @@
 			"dateCreated": "2024-12-25T16:20:45.000Z",
 			"severity": 3,
 			"userDefinedRank": 6,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "Emily Rodriguez",
+				"id": 4
+			}
 		},
 		{
 			"id": 5,
 			"title": "Implement Sentry for error tracking",
 			"tags": ["backend", "api", "frontend"],
 			"dateCreated": "2024-12-28T10:10:20.000Z",
-			"severity": 8,
+			"severity": 2,
 			"userDefinedRank": 1,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "John Doe",
+				"id": 1
+			}
 		},
 		{
 			"id": 6,
 			"title": "Design new UI for task board",
 			"tags": ["product", "design"],
 			"dateCreated": "2024-12-30T13:25:10.000Z",
-			"severity": 5,
+			"severity": 1,
 			"userDefinedRank": 9,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "Sarah Wilson",
+				"id": 2
+			}
 		},
 		{
 			"id": 7,
@@ -61,25 +85,37 @@
 			"dateCreated": "2025-01-02T08:45:30.000Z",
 			"severity": 2,
 			"userDefinedRank": 7,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "Mike Chen",
+				"id": 3
+			}
 		},
 		{
 			"id": 8,
 			"title": "Server backup and restore",
 			"tags": ["DevOps", "automation", "QA"],
 			"dateCreated": "2025-01-05T15:30:45.000Z",
-			"severity": 10,
+			"severity": 3,
 			"userDefinedRank": 4,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "Emily Rodriguez",
+				"id": 4
+			}
 		},
 		{
 			"id": 9,
 			"title": "Add new permissions for users",
 			"tags": ["backend", "api"],
 			"dateCreated": "2025-01-08T12:15:20.000Z",
-			"severity": 6,
+			"severity": 2,
 			"userDefinedRank": 5,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "John Doe",
+				"id": 1
+			}
 		},
 		{
 			"id": 10,
@@ -88,7 +124,11 @@
 			"dateCreated": "2025-01-10T17:40:15.000Z",
 			"severity": 1,
 			"userDefinedRank": 10,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "Sarah Wilson",
+				"id": 2
+			}
 		},
 		{
 			"id": 11,
@@ -97,52 +137,76 @@
 			"dateCreated": "2025-01-12T10:30:00.000Z",
 			"severity": 3,
 			"userDefinedRank": 2,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "Mike Chen",
+				"id": 3
+			}
 		},
 		{
 			"id": 12,
 			"title": "Optimize database queries",
 			"tags": ["backend", "database"],
 			"dateCreated": "2025-01-14T14:45:30.000Z",
-			"severity": 8,
+			"severity": 2,
 			"userDefinedRank": 6,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "Emily Rodriguez",
+				"id": 4
+			}
 		},
 		{
 			"id": 13,
 			"title": "Update API documentation",
 			"tags": ["documentation", "api"],
 			"dateCreated": "2025-01-16T09:15:00.000Z",
-			"severity": 4,
+			"severity": 2,
 			"userDefinedRank": 8,
-			"status": "backlog"
+			"status": "backlog",
+			"assignee": {
+				"name": "John Doe",
+				"id": 1
+			}
 		},
 		{
 			"id": 14,
 			"title": "Implement user authentication flow",
 			"tags": ["frontend", "backend", "security"],
 			"dateCreated": "2025-01-18T11:20:45.000Z",
-			"severity": 9,
+			"severity": 2,
 			"userDefinedRank": 1,
-			"status": "in_progress"
+			"status": "in_progress",
+			"assignee": {
+				"name": "Sarah Wilson",
+				"id": 2
+			}
 		},
 		{
 			"id": 15,
 			"title": "Create comprehensive test suite",
 			"tags": ["testing", "qa"],
 			"dateCreated": "2025-01-20T16:10:20.000Z",
-			"severity": 7,
+			"severity": 2,
 			"userDefinedRank": 3,
-			"status": "done"
+			"status": "done",
+			"assignee": {
+				"name": "Mike Chen",
+				"id": 3
+			}
 		},
 		{
 			"id": 16,
 			"title": "pooled",
 			"tags": ["frontend", "react"],
 			"dateCreated": "2025-01-22T18:30:15.000Z",
-			"severity": 5,
+			"severity": 3,
 			"userDefinedRank": 4,
-			"status": "in_progress"
+			"status": "in_progress",
+			"assignee": {
+				"name": "Emily Rodriguez",
+				"id": 4
+			}
 		}
 	]
 }

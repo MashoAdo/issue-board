@@ -8,4 +8,10 @@ export type TIssue = {
 	severity: number;
 	userDefinedRank: number;
 	status: IssueStatus;
+	assignee: TEmployee;
+};
+
+export type TEmployee = {
+	id: number;
+	name: string;
 };

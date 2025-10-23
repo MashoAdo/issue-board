@@ -1,6 +1,6 @@
 import { DndContext } from "@dnd-kit/core";
 import IssueColumn from "../../../components/issueBoard/IssueColumn";
-import { filterIssues } from "../../../helpers";
+import { filterIssuesByAssignee, filterIssuesBySearchTerm, filterIssuesBySeverity } from "../../../helpers";
 import { useDragAndDrop } from "../../../hooks/useDragAndDrop";
 import useGlobalStore from "../../../store/store";
 import IssueDragOverlay from "./IssueDragOverlay";
@@ -16,22 +16,27 @@ function IssuesBoard() {
 	const backlog = useGlobalStore((state) => state.issues.backlog);
 	const done = useGlobalStore((state) => state.issues.done);
 
+	const filters = useGlobalStore((state) => state.filters);
+
+	const filteredBacklog = filterIssuesBySearchTerm(
+		filterIssuesByAssignee(filterIssuesBySeverity(backlog, filters.severity), filters.assigneeId),
+		searchTerm
+	);
+	const filteredInProgress = filterIssuesBySearchTerm(
+		filterIssuesByAssignee(filterIssuesBySeverity(inProgress, filters.severity), filters.assigneeId),
+		searchTerm
+	);
+	const filteredDone = filterIssuesBySearchTerm(
+		filterIssuesByAssignee(filterIssuesBySeverity(done, filters.severity), filters.assigneeId),
+		searchTerm
+	);
+
 	return (
 		<div className="tasks-columns">
 			<DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-				<IssueColumn
-					loading={loading}
-					title="Backlog"
-					tasks={filterIssues(backlog, searchTerm)}
-					columnStatus="backlog"
-				/>
-				<IssueColumn
-					loading={loading}
-					title="In Progress"
-					tasks={filterIssues(inProgress, searchTerm)}
-					columnStatus="in_progress"
-				/>
-				<IssueColumn loading={loading} title="Done" tasks={filterIssues(done, searchTerm)} columnStatus="done" />
+				<IssueColumn loading={loading} title="Backlog" tasks={filteredBacklog} columnStatus="backlog" />
+				<IssueColumn loading={loading} title="In Progress" tasks={filteredInProgress} columnStatus="in_progress" />
+				<IssueColumn loading={loading} title="Done" tasks={filteredDone} columnStatus="done" />
 
 				<IssueDragOverlay />
 			</DndContext>

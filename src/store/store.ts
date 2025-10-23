@@ -9,11 +9,15 @@ export type IssueStore = {
 	searchTerm: string;
 	setSearchTerm: (searchTerm: string) => void;
 
+	filters: {
+		assigneeId: number | undefined;
+		severity: number | undefined;
+	};
+	updateFilters: (filters: Partial<IssueStore["filters"]>) => void;
+
 	isViewIssueModalOpen: boolean;
 	toggleViewIssueModal: () => void;
 
-	isToasterOpen: boolean;
-	toggleToaster: () => void;
 	issues: Record<IssueStatus, TIssue[]>;
 	setIssues: (issues: Record<IssueStatus, TIssue[]>) => void;
 
@@ -34,10 +38,18 @@ const useGlobalStore = create<IssueStore>()(
 					set(() => ({ searchTerm }));
 				},
 
-				// state
+				// filters
+				filters: {
+					assigneeId: undefined,
+					severity: undefined,
+				},
+				updateFilters: (filters) => {
+					set((state) => ({ filters: { ...state.filters, ...filters } }));
+				},
+
+				//loading state
 				isLoading: false,
-				setLoading: (isLoading: boolean) => {
-					console.log("isLoading", isLoading);
+				setLoading: (isLoading) => {
 					set(() => ({ isLoading }));
 				},
 
@@ -45,12 +57,6 @@ const useGlobalStore = create<IssueStore>()(
 				isViewIssueModalOpen: false,
 				toggleViewIssueModal: () => {
 					set((state) => ({ isViewIssueModalOpen: !state.isViewIssueModalOpen }));
-				},
-
-				// toaster
-				isToasterOpen: false,
-				toggleToaster: () => {
-					set((state) => ({ isToasterOpen: !state.isToasterOpen }));
 				},
 
 				// issues

@@ -1,3 +1,5 @@
+import AssigneeFilter from "../../../components/filters/AssigneeFilter";
+import SeverityFilters from "../../../components/filters/SeverityFilters";
 import Input from "../../../components/form/Input";
 import useGlobalStore from "../../../store/store";
 
@@ -12,21 +14,21 @@ function IssuesPageFilters() {
 	return (
 		<div className="tasks-controls">
 			<div className="tasks-search-section">
-				<Input value={searchTerm} onChange={handleSearch} />
+				<Input value={searchTerm} onChange={handleSearch} onClear={() => setSearchTerm("")} />
 
 				<div className="tasks-filter-group">
 					<label className="tasks-filter-label" htmlFor="assignees">
 						Sort by Assignee
 					</label>
-					<select className="tasks-filter-select" name="assignees" id="assignees">
-						<option value="Thomas">Thomas</option>
-						<option value="Angie">Angie</option>
-					</select>
+					<AssigneeFilter />
 				</div>
 
-				<button className="tasks-button tasks-button--secondary" type="button">
-					Sort by Severity
-				</button>
+				<div className="tasks-filter-group">
+					<label className="tasks-filter-label" htmlFor="severity">
+						Sort by Severity
+					</label>
+					<SeverityFilters />
+				</div>
 			</div>
 
 			<div className="tasks-actions">
