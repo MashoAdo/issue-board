@@ -5,8 +5,13 @@ import type { IssueStatus, TIssue } from "../types";
 export type IssueStore = {
 	isLoading: boolean;
 	setLoading: (isLoading: boolean) => void;
+
+	searchTerm: string;
+	setSearchTerm: (searchTerm: string) => void;
+
 	isViewIssueModalOpen: boolean;
 	toggleViewIssueModal: () => void;
+
 	isToasterOpen: boolean;
 	toggleToaster: () => void;
 	issues: Record<IssueStatus, TIssue[]>;
@@ -23,6 +28,12 @@ const useGlobalStore = create<IssueStore>()(
 	devtools(
 		persist(
 			(set) => ({
+				// search
+				searchTerm: "",
+				setSearchTerm: (searchTerm: string) => {
+					set(() => ({ searchTerm }));
+				},
+
 				// state
 				isLoading: false,
 				setLoading: (isLoading: boolean) => {
