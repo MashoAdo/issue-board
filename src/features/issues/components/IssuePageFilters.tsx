@@ -2,6 +2,7 @@ import AssigneeFilter from "../../../components/filters/AssigneeFilter";
 import SeverityFilters from "../../../components/filters/SeverityFilters";
 import Input from "../../../components/form/Input";
 import useGlobalStore from "../../../store/store";
+import RecentlyViewed from "./RecentlyViewed";
 
 function IssuesPageFilters() {
 	const searchTerm = useGlobalStore((state) => state.searchTerm);
@@ -32,9 +33,7 @@ function IssuesPageFilters() {
 			</div>
 
 			<div className="tasks-actions">
-				<button className="tasks-button tasks-button--secondary" type="button">
-					Recently viewed
-				</button>
+				<RecentlyViewed />
 			</div>
 		</div>
 	);

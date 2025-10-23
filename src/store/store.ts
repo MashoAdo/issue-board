@@ -21,6 +21,9 @@ export type IssueStore = {
 	issues: Record<IssueStatus, TIssue[]>;
 	setIssues: (issues: Record<IssueStatus, TIssue[]>) => void;
 
+	recentViewedIssues: TIssue[];
+	updateRecentViewedIssues: (issue: TIssue) => void;
+
 	// Polling state
 	isPolling: boolean;
 	lastSyncTime: string | null;
@@ -31,7 +34,7 @@ export type IssueStore = {
 const useGlobalStore = create<IssueStore>()(
 	devtools(
 		persist(
-			(set) => ({
+			(set, get) => ({
 				// search
 				searchTerm: "",
 				setSearchTerm: (searchTerm: string) => {
@@ -70,6 +73,20 @@ const useGlobalStore = create<IssueStore>()(
 					set((state) => ({ issues: { ...state.issues, ...issues } as Record<IssueStatus, TIssue[]> }));
 				},
 
+				recentViewedIssues: [],
+				updateRecentViewedIssues: (issue: TIssue) => {
+					set((state) => {
+						const currentRecent = state.recentViewedIssues;
+
+						console.log("currentRecent", currentRecent);
+
+						const filteredRecent = currentRecent.filter((existingIssue) => existingIssue.id !== issue.id);
+						const newRecentViewedIssues = [...filteredRecent, issue];
+						const limitedRecent = newRecentViewedIssues.slice(-5);
+						return { recentViewedIssues: limitedRecent };
+					});
+				},
+
 				// Polling state
 				isPolling: false,
 				lastSyncTime: null,
@@ -83,6 +100,11 @@ const useGlobalStore = create<IssueStore>()(
 			{
 				name: "issue-board",
 				storage: createJSONStorage(() => localStorage),
+				partialize: (state) => {
+					return {
+						recentViewedIssues: state.recentViewedIssues, //only persist recent viewed issues to local storage
+					};
+				},
 			}
 		),
 		{
