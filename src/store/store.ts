@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
-import type { TIssue } from "../types";
+import type { IssueStatus, TIssue } from "../types";
 
 export type IssueStore = {
 	isLoading: boolean;
@@ -9,14 +9,14 @@ export type IssueStore = {
 	toggleViewIssueModal: () => void;
 	isToasterOpen: boolean;
 	toggleToaster: () => void;
-	issues: { backlog: TIssue[]; inProgress: TIssue[]; done: TIssue[] };
-	setIssues: (issues: { backlog: TIssue[]; inProgress: TIssue[]; done: TIssue[] }) => void;
+	issues: Record<IssueStatus, TIssue[]>;
+	setIssues: (issues: Record<IssueStatus, TIssue[]>) => void;
+
 	// Polling state
 	isPolling: boolean;
 	lastSyncTime: string | null;
 	startPolling: () => void;
 	stopPolling: () => void;
-	// addIssue: (issue: TIssue) => void;
 };
 
 const useGlobalStore = create<IssueStore>()(
@@ -45,12 +45,12 @@ const useGlobalStore = create<IssueStore>()(
 				// issues
 				issues: {
 					backlog: [],
-					inProgress: [],
+					in_progress: [],
 					done: [],
 				},
 
-				setIssues: (issues: { backlog: TIssue[]; inProgress: TIssue[]; done: TIssue[] }) => {
-					set((state) => ({ issues: { ...state.issues, ...issues } }));
+				setIssues: (issues: { backlog?: TIssue[]; in_progress: TIssue[]; done: TIssue[] }) => {
+					set((state) => ({ issues: { ...state.issues, ...issues } as Record<IssueStatus, TIssue[]> }));
 				},
 
 				// Polling state
@@ -67,7 +67,10 @@ const useGlobalStore = create<IssueStore>()(
 				name: "issue-board",
 				storage: createJSONStorage(() => localStorage),
 			}
-		)
+		),
+		{
+			name: "global-store",
+		}
 	)
 );
 

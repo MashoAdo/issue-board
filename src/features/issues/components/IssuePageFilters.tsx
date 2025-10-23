@@ -1,6 +1,6 @@
 import Input from "../../../components/form/Input";
 
-function IssueBoardFilters() {
+function IssuesPageFilters() {
 	return (
 		<div className="tasks-controls">
 			<div className="tasks-search-section">
@@ -30,4 +30,4 @@ function IssueBoardFilters() {
 	);
 }
 
-export default IssueBoardFilters;
+export default IssuesPageFilters;

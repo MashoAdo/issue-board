@@ -14,9 +14,9 @@ export function useIssueData() {
 	const listIssues = async () => {
 		try {
 			console.log("🔄 Fetching issues...");
-			const { backlog, inProgress, done } = await fetchAndProcessIssues();
+			const { backlog, in_progress, done } = await fetchAndProcessIssues();
 
-			setIssues({ backlog, inProgress, done });
+			setIssues({ backlog, in_progress, done });
 
 			// Update last sync time
 			useGlobalStore.setState({ lastSyncTime: new Date().toISOString() });
@@ -52,6 +52,5 @@ export function useIssueData() {
 	return {
 		lastSyncTime,
 		isPolling,
-		listIssues,
 	};
 }
