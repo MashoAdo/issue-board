@@ -1,0 +1,1 @@
+export const DEFAULT_TOASTER_DURATION_IN_MS = 5000;
