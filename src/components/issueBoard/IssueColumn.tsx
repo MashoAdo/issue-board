@@ -1,4 +1,5 @@
 import { useDroppable } from "@dnd-kit/core";
+import { getStatusColor } from "../../helpers";
 import type { IssueStatus, TIssue } from "../../types";
 import IssueCard from "./IssueCard";
 import IssueDraggable from "./IssueDraggable";
@@ -36,15 +37,19 @@ function IssueColumn({ title, tasks, loading, columnStatus }: IssueColumnProps) 
 		>
 			<div
 				style={{
+					backgroundColor: getStatusColor(columnStatus),
+					color: "white",
+
 					display: "flex",
-					border: "1px solid lightgray",
-					borderRadius: "8px",
 					padding: "4px 8px",
+					borderRadius: "4px",
+					fontWeight: "500",
+					whiteSpace: "nowrap",
 					marginBottom: "16px",
 				}}
 			>
 				<p>{title}</p>
-				<span style={{ marginLeft: "8px", color: "gray" }}>({loading ? "..." : count})</span>
+				<span style={{ marginLeft: "8px" }}>({loading ? "..." : count})</span>
 			</div>
 
 			{loading ? (
@@ -72,6 +77,7 @@ function IssueColumn({ title, tasks, loading, columnStatus }: IssueColumnProps) 
 									borderRadius: "8px",
 									padding: "12px 8px",
 									backgroundColor: "white",
+									position: "relative", // Allow absolute positioning of drag handle
 								}}
 							/>
 						</IssueDraggable>

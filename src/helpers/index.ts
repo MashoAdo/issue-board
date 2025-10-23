@@ -41,3 +41,33 @@ export function calculatePriorityScore(issue: TIssue) {
 export function sortIssuesByPriority(issues: TIssue[]): TIssue[] {
 	return [...issues].sort((a, b) => calculatePriorityScore(a) - calculatePriorityScore(b));
 }
+
+export function formatDate(dateString: string) {
+	return new Date(dateString).toLocaleDateString("en-US", {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	});
+}
+
+export function getSeverityColor(severity: number) {
+	switch (severity) {
+		case 1:
+			return "gray";
+		case 2:
+			return "orange";
+		case 3:
+			return "red";
+	}
+}
+
+export function getStatusColor(status: string) {
+	switch (status) {
+		case "backlog":
+			return "#607D8B";
+		case "in_progress":
+			return "blue";
+		case "done":
+			return "green";
+	}
+}

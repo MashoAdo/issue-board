@@ -4,12 +4,14 @@ function UndoButton({ onUndo }: { onUndo: () => void }) {
 			<button
 				onClick={onUndo}
 				style={{
-					padding: "8px 16px",
 					fontSize: "12px",
 					backgroundColor: "#FF4742",
 					color: "white",
 					border: "none",
-					borderRadius: "6px",
+					padding: "4px 8px",
+					borderRadius: "4px",
+					fontWeight: "500",
+					whiteSpace: "nowrap",
 					cursor: "pointer",
 				}}
 			>
