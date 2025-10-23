@@ -34,7 +34,7 @@ export type IssueStore = {
 const useGlobalStore = create<IssueStore>()(
 	devtools(
 		persist(
-			(set, get) => ({
+			(set) => ({
 				// search
 				searchTerm: "",
 				setSearchTerm: (searchTerm: string) => {

@@ -7,15 +7,6 @@ function RecentlyViewedModal() {
 	if (recentlyViewed.length === 0) {
 		return (
 			<div style={{ textAlign: "center", padding: "40px" }}>
-				<div
-					style={{
-						fontSize: "48px",
-						marginBottom: "16px",
-						color: "#d1d5db",
-					}}
-				>
-					👁️
-				</div>
 				<h3 style={{ margin: "0 0 8px 0", color: "#374151" }}>No recently viewed issues</h3>
 				<p style={{ margin: 0, color: "#6b7280" }}>Start viewing issues to see them here</p>
 			</div>
@@ -30,16 +21,9 @@ function RecentlyViewedModal() {
 
 			<div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
 				{[...recentlyViewed].reverse().map((issue) => (
-					<IssueCard key={issue.id} issue={issue} disableViewIssue />
+					<IssueCard key={issue.id} issue={issue} />
 				))}
 			</div>
-
-			<style>{`
-				@keyframes spin {
-					0% { transform: rotate(0deg); }
-					100% { transform: rotate(360deg); }
-				}
-			`}</style>
 		</div>
 	);
 }

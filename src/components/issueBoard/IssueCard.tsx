@@ -4,21 +4,20 @@ import { SEVERITY_LEVELS } from "../../constants";
 import { formatDate, getSeverityColor } from "../../helpers";
 import useGlobalStore from "../../store/store";
 import type { TIssue } from "../../types";
+import Tags from "./Tags";
 
-export default function IssueCard({
-	issue,
-	disableViewIssue = false,
-	stylesOverride = {},
-}: {
-	issue: TIssue;
-	disableViewIssue?: boolean;
-	stylesOverride?: CSSProperties;
-}) {
+export default function IssueCard({ issue, stylesOverride = {} }: { issue: TIssue; stylesOverride?: CSSProperties }) {
 	const navigate = useNavigate();
 	const updateRecentViewedIssues = useGlobalStore((state) => state.updateRecentViewedIssues);
-
+	const toggleViewIssueModal = useGlobalStore((state) => state.toggleViewIssueModal);
+	const isViewIssueModalOpen = useGlobalStore((state) => state.isViewIssueModalOpen);
 	const handleViewIssue = () => {
 		updateRecentViewedIssues(issue);
+
+		if (isViewIssueModalOpen) {
+			toggleViewIssueModal();
+		}
+
 		navigate(`/issues/${issue.id}`);
 	};
 
@@ -63,15 +62,13 @@ export default function IssueCard({
 					{issue.title}
 				</h4>
 
-				{!disableViewIssue && (
-					<div
-						style={{ textDecoration: "none", cursor: "pointer", color: "#3b82f6" }}
-						role="button"
-						onClick={handleViewIssue}
-					>
-						View
-					</div>
-				)}
+				<div
+					style={{ textDecoration: "none", cursor: "pointer", color: "#3b82f6" }}
+					role="button"
+					onClick={handleViewIssue}
+				>
+					View
+				</div>
 			</div>
 
 			<div
@@ -98,19 +95,7 @@ export default function IssueCard({
 				{issue.tags.length > 0 && (
 					<div style={{ marginTop: "8px", display: "flex", gap: "6px", flexWrap: "wrap" }}>
 						{issue.tags.map((tag, index) => (
-							<span
-								key={index}
-								style={{
-									backgroundColor: "#e0e7ff",
-									color: "#3730a3",
-									padding: "2px 6px",
-									borderRadius: "3px",
-									fontSize: "12px",
-									fontWeight: "500",
-								}}
-							>
-								{tag}
-							</span>
+							<Tags key={index} tag={tag} />
 						))}
 					</div>
 				)}
