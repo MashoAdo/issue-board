@@ -1,3 +1,4 @@
+import { sortIssuesByPriority } from "../helpers";
 import type { TIssue } from "../types";
 
 export default async function fetchAndProcessIssues(): Promise<{
@@ -9,13 +10,17 @@ export default async function fetchAndProcessIssues(): Promise<{
 	await new Promise((resolve) => setTimeout(resolve, 500));
 
 	const data = await import("../data/issues.json");
-	const issues = data.issues;
+	const issues = data.issues as TIssue[];
 
 	const backlog = issues.filter((issue) => issue.status === "backlog");
-	const in_progress = issues.filter((issue) => issue.status === "in_progress");
+	const inProgress = issues.filter((issue) => issue.status === "in_progress");
 	const done = issues.filter((issue) => issue.status === "done");
 
-	return { backlog, in_progress, done } as { backlog: TIssue[]; in_progress: TIssue[]; done: TIssue[] };
+	const sortedBacklog = sortIssuesByPriority(backlog);
+	const sortedInProgress = sortIssuesByPriority(inProgress);
+	const sortedDone = sortIssuesByPriority(done);
+
+	return { backlog: sortedBacklog, in_progress: sortedInProgress, done: sortedDone };
 }
 
 export async function updateIssueStatus() {
