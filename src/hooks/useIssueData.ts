@@ -13,7 +13,6 @@ export function useIssueData() {
 
 	const listIssues = async () => {
 		try {
-			console.log("🔄 Fetching issues...");
 			const { backlog, in_progress, done } = await fetchAndProcessIssues();
 
 			setIssues({ backlog, in_progress, done });
