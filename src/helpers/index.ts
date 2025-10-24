@@ -30,7 +30,7 @@ export function filterIssuesBySeverity(issues: TIssue[], value: number | undefin
 
 export function calculatePriorityScore(issue: TIssue) {
 	const severity = issue.severity;
-	const daySinceCreation = new Date(issue.dateCreated).getTime() - new Date().getTime();
+	const daySinceCreation = new Date(issue.dateCreated).getDay() - new Date().getDay();
 	const userDefinedRank = issue.userDefinedRank;
 
 	const score = severity * 10 + daySinceCreation * -1 + userDefinedRank;
@@ -39,7 +39,16 @@ export function calculatePriorityScore(issue: TIssue) {
 }
 
 export function sortIssuesByPriority(issues: TIssue[]): TIssue[] {
-	return [...issues].sort((a, b) => calculatePriorityScore(a) - calculatePriorityScore(b));
+	return [...issues].sort((a, b) => {
+		const scoreA = calculatePriorityScore(a);
+		const scoreB = calculatePriorityScore(b);
+
+		if (scoreA === scoreB) {
+			return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
+		}
+
+		return scoreB - scoreA;
+	});
 }
 
 export function formatDate(dateString: string) {
