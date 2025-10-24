@@ -13,6 +13,44 @@ body {
 	height: 100%;
 }
 
+:root {
+	/* Light mode colors */
+	--bg-primary: #fafbfa;
+	--bg-secondary: #ffffff;
+	--bg-tertiary: #f3f4f6;
+	--text-primary: #1a1a1a;
+	--text-secondary: #374151;
+	--text-tertiary: #6b7280;
+	--border-primary: #e5e7eb;
+	--border-secondary: #d1d5db;
+	--accent-primary: #3b82f6;
+	--accent-secondary: #10b981;
+	--hover-bg: #f9fafb;
+
+	/* Issue card specific colors */
+	--card-bg: #ffffff;
+	--card-bg-hover: #f3f4f6;
+}
+
+[data-theme="dark"] {
+	/* Dark mode colors */
+	--bg-primary: #0f172a;
+	--bg-secondary: #1e293b;
+	--bg-tertiary: #334155;
+	--text-primary: #f8fafc;
+	--text-secondary: #e2e8f0;
+	--text-tertiary: #cbd5e1;
+	--border-primary: #475569;
+	--border-secondary: #64748b;
+	--accent-primary: #60a5fa;
+	--accent-secondary: #34d399;
+	--hover-bg: #334155;
+
+	/* Issue card specific colors for dark mode */
+	--card-bg: #1e293b;
+	--card-bg-hover: #334155;
+}
+
 body {
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
@@ -22,6 +60,9 @@ body {
 	font-weight: 400;
 	font-style: normal;
 	scroll-behavior: smooth;
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
+	transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 img,

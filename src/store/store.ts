@@ -29,6 +29,10 @@ export type IssueStore = {
 
 	updateIssueStatus: (issueId: number, status: IssueStatus) => void;
 
+	// Dark mode
+	isDarkMode: boolean;
+	toggleDarkMode: () => void;
+
 	// Polling state
 	isPolling: boolean;
 	lastSyncTime: string | null;
@@ -114,6 +118,12 @@ const useGlobalStore = create<IssueStore>()(
 					});
 				},
 
+				// Dark mode
+				isDarkMode: false,
+				toggleDarkMode: () => {
+					set((state) => ({ isDarkMode: !state.isDarkMode }));
+				},
+
 				// Polling state
 				isPolling: false,
 				lastSyncTime: null,
@@ -130,6 +140,7 @@ const useGlobalStore = create<IssueStore>()(
 				partialize: (state) => {
 					return {
 						recentViewedIssues: state.recentViewedIssues, //only persist recent viewed issues to local storage
+						isDarkMode: state.isDarkMode, // persist dark mode preference
 					};
 				},
 			}

@@ -27,10 +27,10 @@ function IssueColumn({ title, tasks, loading, columnStatus }: IssueColumnProps) 
 				display: "flex",
 				flexDirection: "column",
 				minHeight: 0,
-				border: isOver ? "2px solid #3b82f6" : "1px solid lightgray",
+				border: isOver ? "2px solid var(--accent-primary)" : "1px solid var(--border-primary)",
 				borderRadius: "8px",
 				padding: "16px",
-				backgroundColor: isOver ? "#f0f9ff" : "transparent",
+				backgroundColor: isOver ? "var(--hover-bg)" : "transparent",
 				transition: "all 0.2s ease",
 				position: "relative",
 			}}
@@ -73,10 +73,10 @@ function IssueColumn({ title, tasks, loading, columnStatus }: IssueColumnProps) 
 							<IssueCard
 								issue={task}
 								stylesOverride={{
-									border: "1px solid lightgray",
+									border: "1px solid var(--border-primary)",
 									borderRadius: "8px",
 									padding: "12px 8px",
-									backgroundColor: "white",
+									backgroundColor: "var(--card-bg)",
 									position: "relative", // Allow absolute positioning of drag handle
 								}}
 							/>

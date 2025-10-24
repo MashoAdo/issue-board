@@ -25,22 +25,22 @@ export default function IssueCard({ issue, stylesOverride = {} }: { issue: TIssu
 		<div
 			key={issue.id}
 			style={{
-				border: "1px solid #e5e7eb",
+				border: "1px solid var(--border-primary)",
 				borderRadius: "6px",
 				padding: "16px",
-				backgroundColor: "#fafafa",
+				backgroundColor: "var(--card-bg)",
 				cursor: "pointer",
 				transition: "all 0.2s ease",
 
 				...stylesOverride,
 			}}
 			onMouseEnter={(e) => {
-				e.currentTarget.style.backgroundColor = "#f3f4f6";
-				e.currentTarget.style.borderColor = "#d1d5db";
+				e.currentTarget.style.backgroundColor = "var(--card-bg-hover)";
+				e.currentTarget.style.borderColor = "var(--border-secondary)";
 			}}
 			onMouseLeave={(e) => {
-				e.currentTarget.style.backgroundColor = "#fafafa";
-				e.currentTarget.style.borderColor = "#e5e7eb";
+				e.currentTarget.style.backgroundColor = "var(--card-bg)";
+				e.currentTarget.style.borderColor = "var(--border-primary)";
 			}}
 		>
 			<div
@@ -55,7 +55,7 @@ export default function IssueCard({ issue, stylesOverride = {} }: { issue: TIssu
 						margin: 0,
 						fontSize: "16px",
 						fontWeight: "600",
-						color: "#1f2937",
+						color: "var(--text-primary)",
 						flex: 1,
 					}}
 				>
@@ -63,7 +63,7 @@ export default function IssueCard({ issue, stylesOverride = {} }: { issue: TIssu
 				</h4>
 
 				<div
-					style={{ textDecoration: "none", cursor: "pointer", color: "#3b82f6" }}
+					style={{ textDecoration: "none", cursor: "pointer", color: "var(--accent-primary)" }}
 					role="button"
 					onClick={handleViewIssue}
 				>
@@ -77,7 +77,7 @@ export default function IssueCard({ issue, stylesOverride = {} }: { issue: TIssu
 					justifyContent: "space-between",
 					alignItems: "center",
 					fontSize: "14px",
-					color: "#6b7280",
+					color: "var(--text-tertiary)",
 					margin: "6px 0",
 				}}
 			>

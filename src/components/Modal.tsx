@@ -42,7 +42,7 @@ function Modal() {
 		>
 			<div
 				style={{
-					backgroundColor: "white",
+					backgroundColor: "var(--bg-secondary)",
 					borderRadius: "8px",
 					maxWidth: "500px",
 					width: "100%",
@@ -57,7 +57,7 @@ function Modal() {
 					<div
 						style={{
 							padding: "20px 20px 0 20px",
-							borderBottom: "1px solid #e5e7eb",
+							borderBottom: "1px solid var(--border-primary)",
 							display: "flex",
 							justifyContent: "space-between",
 							alignItems: "center",
@@ -68,7 +68,7 @@ function Modal() {
 								margin: 0,
 								fontSize: "18px",
 								fontWeight: "600",
-								color: "#1f2937",
+								color: "var(--text-primary)",
 							}}
 						>
 							{title}
@@ -81,7 +81,7 @@ function Modal() {
 								cursor: "pointer",
 								padding: "4px",
 								borderRadius: "4px",
-								color: "#6b7280",
+								color: "var(--text-tertiary)",
 								fontSize: "20px",
 								lineHeight: 1,
 								display: "flex",
@@ -89,12 +89,12 @@ function Modal() {
 								justifyContent: "center",
 							}}
 							onMouseEnter={(e) => {
-								e.currentTarget.style.backgroundColor = "#f3f4f6";
-								e.currentTarget.style.color = "#374151";
+								e.currentTarget.style.backgroundColor = "var(--hover-bg)";
+								e.currentTarget.style.color = "var(--text-secondary)";
 							}}
 							onMouseLeave={(e) => {
 								e.currentTarget.style.backgroundColor = "transparent";
-								e.currentTarget.style.color = "#6b7280";
+								e.currentTarget.style.color = "var(--text-tertiary)";
 							}}
 						>
 							×
