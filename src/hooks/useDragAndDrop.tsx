@@ -1,6 +1,7 @@
 import { type DragEndEvent } from "@dnd-kit/core";
 import { updateIssueStatus } from "../api";
 import UndoButton from "../components/UndoButton";
+import { authUserCan, PERMISSIONS } from "../helpers/permissions";
 import useGlobalStore from "../store/store";
 import type { IssueStatus, TIssue } from "../types";
 import { useToaster } from "./useToaster";
@@ -13,6 +14,8 @@ export function useDragAndDrop() {
 	const handleDragStart = () => {};
 
 	const handleDragEnd = async (event: DragEndEvent) => {
+		if (!authUserCan(PERMISSIONS.MOVE_ISSUE)) return;
+
 		const { active, over } = event;
 
 		if (!over || !active) return;

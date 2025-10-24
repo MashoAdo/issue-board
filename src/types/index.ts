@@ -1,3 +1,5 @@
+import type { TPermission } from "../helpers/permissions";
+
 export type IssueStatus = "backlog" | "in_progress" | "done";
 
 export type TIssue = {
@@ -14,4 +16,12 @@ export type TIssue = {
 export type TEmployee = {
 	id: number;
 	name: string;
+};
+
+export type TRole = "admin" | "contributor";
+
+export type TAuthUser = {
+	name: string;
+	permissions: TPermission[];
+	role: TRole;
 };

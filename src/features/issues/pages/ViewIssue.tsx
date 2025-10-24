@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Tags from "../../../components/issueBoard/Tags";
 import { SEVERITY_LEVELS } from "../../../constants";
 import { formatDate, getSeverityColor } from "../../../helpers";
+import { authUserCan, PERMISSIONS } from "../../../helpers/permissions";
 import useGlobalStore from "../../../store/store";
 import type { IssueStatus } from "../../../types";
 
@@ -10,6 +11,7 @@ function ViewIssue() {
 	const recentViewedIssues = useGlobalStore((state) => state.recentViewedIssues);
 
 	const issue = recentViewedIssues.find((issue) => issue.id === Number(id));
+	const canMarkAsResolved = authUserCan(PERMISSIONS.MARK_AS_RESOLVED);
 
 	if (!issue) {
 		return (
@@ -36,7 +38,7 @@ function ViewIssue() {
 						<span>{formatDate(issue.dateCreated)}</span>
 					</div>
 
-					{issue.status !== "done" && <MarkAsResolvedAction issueId={issue.id} status={"done"} />}
+					{issue.status !== "done" && canMarkAsResolved && <MarkAsResolvedAction issueId={issue.id} status={"done"} />}
 				</div>
 			</div>
 

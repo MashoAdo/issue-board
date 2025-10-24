@@ -1,5 +1,6 @@
 import { useDraggable } from "@dnd-kit/core";
 import { useState } from "react";
+import { authUserCan, PERMISSIONS } from "../../helpers/permissions";
 import type { TIssue } from "../../types";
 
 interface IssueDraggableProps {
@@ -14,6 +15,7 @@ function IssueDraggable({ issue, children }: IssueDraggableProps) {
 			//This is used to determine which column the issue is dropped from
 			columnStatus: issue.status,
 		},
+		disabled: !authUserCan(PERMISSIONS.MOVE_ISSUE),
 	});
 
 	const [isHovering, setIsHovering] = useState(false);
@@ -28,7 +30,7 @@ function IssueDraggable({ issue, children }: IssueDraggableProps) {
 		>
 			{children}
 			{/* Dedicated drag handle - only this area triggers drag */}
-			{isHovering && (
+			{authUserCan(PERMISSIONS.MOVE_ISSUE) && isHovering && (
 				<div
 					{...listeners}
 					style={{

@@ -1,8 +1,11 @@
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
-import type { IssueStatus, TIssue } from "../types";
+import type { IssueStatus, TAuthUser, TIssue } from "../types";
 
 export type IssueStore = {
+	authUserPermissions: TAuthUser;
+	setAuthUser: (user: TAuthUser) => void;
+
 	isLoading: boolean;
 	setLoading: (isLoading: boolean) => void;
 
@@ -37,6 +40,15 @@ const useGlobalStore = create<IssueStore>()(
 	devtools(
 		persist(
 			(set) => ({
+				authUserPermissions: {
+					name: "John Doe",
+					permissions: [],
+					role: "admin",
+				},
+				setAuthUser: (user: TAuthUser) => {
+					set(() => ({ authUserPermissions: user }));
+				},
+
 				// search
 				searchTerm: "",
 				setSearchTerm: (searchTerm: string) => {
@@ -70,12 +82,10 @@ const useGlobalStore = create<IssueStore>()(
 					in_progress: [],
 					done: [],
 				},
-
 				setIssues: (issues: { backlog?: TIssue[]; in_progress: TIssue[]; done: TIssue[] }) => {
 					set((state) => ({ issues: { ...state.issues, ...issues } as Record<IssueStatus, TIssue[]> }));
 				},
 				updateIssueStatus: (issueId: number, status: IssueStatus) => {
-					console.log("updateIssueStatus", issueId, status);
 					set((state) => ({
 						issues: {
 							...state.issues,

@@ -37,7 +37,6 @@ function IssuesBoard() {
 				<IssueColumn loading={loading} title="Backlog" tasks={filteredBacklog} columnStatus="backlog" />
 				<IssueColumn loading={loading} title="In Progress" tasks={filteredInProgress} columnStatus="in_progress" />
 				<IssueColumn loading={loading} title="Done" tasks={filteredDone} columnStatus="done" />
-
 				<IssueDragOverlay />
 			</DndContext>
 		</div>
