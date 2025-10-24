@@ -3,13 +3,13 @@ import Tags from "../../../components/issueBoard/Tags";
 import { SEVERITY_LEVELS } from "../../../constants";
 import { formatDate, getSeverityColor } from "../../../helpers";
 import useGlobalStore from "../../../store/store";
+import type { IssueStatus } from "../../../types";
 
 function ViewIssue() {
 	const { id } = useParams();
-	const issues = useGlobalStore((state) => state.issues);
+	const recentViewedIssues = useGlobalStore((state) => state.recentViewedIssues);
 
-	const allIssues = [...issues.backlog, ...issues.in_progress, ...issues.done];
-	const issue = allIssues.find((issue) => issue.id.toString() === id);
+	const issue = recentViewedIssues.find((issue) => issue.id === Number(id));
 
 	if (!issue) {
 		return (
@@ -27,12 +27,16 @@ function ViewIssue() {
 
 				<h1 style={{ margin: "0 0 8px 0", fontSize: "24px", color: "#1f2937" }}>{issue.title}</h1>
 
-				<div style={{ display: "flex", gap: "12px", alignItems: "center", fontSize: "14px", color: "#6b7280" }}>
-					<span>#{issue.id}</span>
-					<span>•</span>
-					<span>{issue.assignee.name}</span>
-					<span>•</span>
-					<span>{formatDate(issue.dateCreated)}</span>
+				<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+					<div style={{ display: "flex", gap: "12px", alignItems: "center", fontSize: "14px", color: "#6b7280" }}>
+						<span>#{issue.id}</span>
+						<span>•</span>
+						<span>{issue.assignee.name}</span>
+						<span>•</span>
+						<span>{formatDate(issue.dateCreated)}</span>
+					</div>
+
+					{issue.status !== "done" && <MarkAsResolvedAction issueId={issue.id} status={"done"} />}
 				</div>
 			</div>
 
@@ -139,19 +143,28 @@ function BackButton({ url, label }: { url: string; label: string }) {
 	);
 }
 
-function MarkAsResolvedAction() {
+function MarkAsResolvedAction({ issueId, status }: { issueId: number; status: IssueStatus }) {
+	const updateIssueStatus = useGlobalStore((state) => state.updateIssueStatus);
+
 	return (
-		<div>
-			<svg width="40" height="40" viewBox="0 0 1.2 1.2" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<button
+			className="tasks-button tasks-button--secondary"
+			style={{ display: "flex", alignItems: "center", gap: "8px" }}
+			onClick={() => {
+				updateIssueStatus(issueId, status);
+			}}
+		>
+			<svg width="20" height="20" viewBox="0 0 0.6 0.6" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<g clip-path="url(#a)" fill="#000">
-					<path d="M.88.348a.05.05 0 0 0-.07-.07l-.532.53L.086.616a.05.05 0 0 0-.07.07l.228.228a.05.05 0 0 0 .07 0zm.3 0a.05.05 0 0 0-.07-.07L.544.844a.05.05 0 0 0 .07.07z" />
+					<path d="M.44.174A.025.025 0 0 0 .405.139L.139.404.043.308a.025.025 0 0 0-.035.035l.114.114a.025.025 0 0 0 .035 0zm.15 0A.025.025 0 0 0 .555.139L.272.422a.025.025 0 0 0 .035.035z" />
 				</g>
 				<defs>
 					<clipPath id="a">
-						<path fill="#fff" d="M0 0h1.2v1.2H0z" />
+						<path fill="#fff" d="M0 0h.6v.6H0z" />
 					</clipPath>
 				</defs>
 			</svg>
-		</div>
+			Mark as resolved
+		</button>
 	);
 }

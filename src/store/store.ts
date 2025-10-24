@@ -24,6 +24,8 @@ export type IssueStore = {
 	recentViewedIssues: TIssue[];
 	updateRecentViewedIssues: (issue: TIssue) => void;
 
+	updateIssueStatus: (issueId: number, status: IssueStatus) => void;
+
 	// Polling state
 	isPolling: boolean;
 	lastSyncTime: string | null;
@@ -71,6 +73,21 @@ const useGlobalStore = create<IssueStore>()(
 
 				setIssues: (issues: { backlog?: TIssue[]; in_progress: TIssue[]; done: TIssue[] }) => {
 					set((state) => ({ issues: { ...state.issues, ...issues } as Record<IssueStatus, TIssue[]> }));
+				},
+				updateIssueStatus: (issueId: number, status: IssueStatus) => {
+					console.log("updateIssueStatus", issueId, status);
+					set((state) => ({
+						issues: {
+							...state.issues,
+							[status]: state.issues[status].map((issue) => (issue.id === issueId ? { ...issue, status } : issue)),
+						},
+					}));
+
+					set((state) => ({
+						recentViewedIssues: state.recentViewedIssues.map((issue) =>
+							issue.id === issueId ? { ...issue, status } : issue
+						),
+					}));
 				},
 
 				recentViewedIssues: [],
