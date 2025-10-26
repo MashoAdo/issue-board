@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { calculatePriorityScore, sortIssuesByPriority } from "../helpers/index";
 import type { TIssue } from "../types";
-import { calculatePriorityScore, sortIssuesByPriority } from "./index";
 
 describe("sortIssuesByPriority", () => {
 	let mockIssues: TIssue[];
@@ -66,16 +66,16 @@ describe("sortIssuesByPriority", () => {
 	it("should prioritize newer issues over older ones if the priority score is the same", () => {
 		const issues = [
 			{
+				...mockIssues[1],
+				severity: 1,
+				userDefinedRank: 1,
+				dateCreated: "2024-01-12T10:00:00Z", // 3 days old
+			},
+			{
 				...mockIssues[0],
 				severity: 1,
 				userDefinedRank: 1,
 				dateCreated: "2024-01-13T10:00:00Z", // 2 days old
-			},
-			{
-				...mockIssues[1],
-				severity: 1,
-				userDefinedRank: 1,
-				dateCreated: "2024-01-14T10:00:00Z", // 1 day old
 			},
 		];
 
